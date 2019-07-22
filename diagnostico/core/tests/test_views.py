@@ -25,3 +25,19 @@ def test_home_contains_title(resp_home):
     resp = resp_home
     assert_contains(resp, '<title>Diagnóstico - Jornada do Empreendedor de Startups</title>')
     assert_contains(resp, '>Diagnóstico | Jornada do Empreendedor</h1>')
+
+
+def test_resultado_status_code(client: Client):
+    resp = client.get(reverse('resultado'))
+    assert resp.status_code == 200
+
+
+def test_resultado_template_used(client: Client):
+    resp = client.get(reverse('resultado'))
+    assert_template_used(resp, 'resultado.html')
+
+
+def test_resultado_contains_title(client: Client):
+    resp = client.get(reverse('resultado'))
+    assert_contains(resp, '<title>Diagnóstico - Jornada do Empreendedor de Startups | Resultado</title>')
+    assert_contains(resp, '>Diagnóstico | Jornada do Empreendedor</h1>')
