@@ -2,7 +2,7 @@ import pytest
 from django.test import Client
 from django.urls import reverse
 
-from ..django_assertions import assert_template_used, assert_contains, assert_is_instance
+from ..django_assertions import assert_template_used, assert_contains, assert_is_instance, assert_redirects
 from ..forms import DiagnosticoForm1
 
 
@@ -14,7 +14,7 @@ def resp_home(client: Client):
 
 @pytest.fixture
 def resp_resultado(client: Client):
-    resp = client.get(reverse('resultado'))
+    resp = client.get(reverse('resultado', args=[None]))
     return resp
 
 
@@ -37,6 +37,12 @@ def test_home_contains_title(resp_home):
 def test_home_has_form_1_on_context(resp_home):
     resp = resp_home
     assert_is_instance(resp.context['form'], DiagnosticoForm1)
+
+
+def test_home_redireciona_para_resultado_em_caso_de_post(client: Client):
+    data = {'tipo_empresa': 'b2b', 'qtd_venda': '0'}
+    resp = client.post(reverse('home'), data)
+    assert_redirects(resp, reverse('resultado', args=(0,)))
 
 
 def test_resultado_status_code(resp_resultado):

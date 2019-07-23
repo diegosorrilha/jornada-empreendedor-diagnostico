@@ -21,6 +21,6 @@ from diagnostico.core.views import home, resultado
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
-    path('resultado/', resultado, name='resultado'),
+    path('resultado/<id_etapa>/', resultado, name='resultado'),
 
 ]
