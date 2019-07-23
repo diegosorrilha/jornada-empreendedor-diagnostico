@@ -10,6 +10,7 @@ def resp_home(client: Client):
     resp = client.get(reverse('home'))
     return resp
 
+
 @pytest.fixture
 def resp_resultado(client: Client):
     resp = client.get(reverse('resultado'))
