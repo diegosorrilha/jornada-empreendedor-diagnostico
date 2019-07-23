@@ -7,21 +7,12 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>Diagnóstico - Jornada do Empreendedor de Startups</title>
+    <title>Diagnóstico - Jornada do Empreendedor de Startups | Resultado</title>
 </head>
 <body>
     <div class="jumbotron">
         <h1 class="display-4">Diagnóstico | Jornada do Empreendedor</h1>
-        <p class="lead">Uma simples ferramenta para saber em qual etapa da Jornada do Empreendedor, sua Startup está.</p>
-    </div>
-
-    <div>
-        <form action="" method="POST">
-            {% csrf_token %}
-            {{ form }}
-            <input type="submit">
-        </form>
-
+        <p class="lead">Resultado: {{nome_etapa}}</p>
     </div>
 
 

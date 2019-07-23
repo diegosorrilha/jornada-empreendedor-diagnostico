@@ -16,10 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from diagnostico.core.views import home
+from diagnostico.core.views import home, resultado
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home),
+    path('', home, name='home'),
+    path('resultado/<etapa>/', resultado, name='resultado'),
 
 ]
