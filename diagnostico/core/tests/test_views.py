@@ -10,6 +10,11 @@ def resp_home(client: Client):
     resp = client.get(reverse('home'))
     return resp
 
+@pytest.fixture
+def resp_resultado(client: Client):
+    resp = client.get(reverse('resultado'))
+    return resp
+
 
 def test_home_status_code(resp_home):
     resp = resp_home
@@ -27,17 +32,17 @@ def test_home_contains_title(resp_home):
     assert_contains(resp, '>Diagnóstico | Jornada do Empreendedor</h1>')
 
 
-def test_resultado_status_code(client: Client):
-    resp = client.get(reverse('resultado'))
+def test_resultado_status_code(resp_resultado):
+    resp = resp_resultado
     assert resp.status_code == 200
 
 
-def test_resultado_template_used(client: Client):
-    resp = client.get(reverse('resultado'))
+def test_resultado_template_used(resp_resultado):
+    resp = resp_resultado
     assert_template_used(resp, 'resultado.html')
 
 
-def test_resultado_contains_title(client: Client):
-    resp = client.get(reverse('resultado'))
+def test_resultado_contains_title(resp_resultado):
+    resp = resp_resultado
     assert_contains(resp, '<title>Diagnóstico - Jornada do Empreendedor de Startups | Resultado</title>')
     assert_contains(resp, '>Diagnóstico | Jornada do Empreendedor</h1>')
