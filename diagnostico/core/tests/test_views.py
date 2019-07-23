@@ -14,7 +14,7 @@ def resp_home(client: Client):
 
 @pytest.fixture
 def resp_resultado(client: Client):
-    resp = client.get(reverse('resultado', args=[None]))
+    resp = client.get(reverse('resultado', args=['1']))
     return resp
 
 
@@ -39,10 +39,10 @@ def test_home_has_form_1_on_context(resp_home):
     assert_is_instance(resp.context['form'], DiagnosticoForm1)
 
 
-def test_home_redireciona_para_resultado_em_caso_de_post(client: Client):
+def test_home_redireciona_para_resultado_com_etapa_1_em_caso_de_venda_zero(client: Client):
     data = {'tipo_empresa': 'b2b', 'qtd_venda': '0'}
     resp = client.post(reverse('home'), data)
-    assert_redirects(resp, reverse('resultado', args=(0,)))
+    assert_redirects(resp, reverse('resultado', args=['1']))
 
 
 def test_resultado_status_code(resp_resultado):
@@ -59,3 +59,8 @@ def test_resultado_contains_title(resp_resultado):
     resp = resp_resultado
     assert_contains(resp, '<title>Diagnóstico - Jornada do Empreendedor de Startups | Resultado</title>')
     assert_contains(resp, '>Diagnóstico | Jornada do Empreendedor</h1>')
+
+
+def test_resultado_exibe_ideacao(client: Client):
+    resp = client.get(reverse('resultado', args=['1']))
+    assert_contains(resp, 'Resultado: Ideação')
