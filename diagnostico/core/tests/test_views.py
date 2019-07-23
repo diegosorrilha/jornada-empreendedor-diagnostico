@@ -2,7 +2,8 @@ import pytest
 from django.test import Client
 from django.urls import reverse
 
-from ..django_assertions import assert_template_used, assert_contains
+from ..django_assertions import assert_template_used, assert_contains, assert_is_instance
+from ..forms import DiagnosticoForm1
 
 
 @pytest.fixture
@@ -31,6 +32,11 @@ def test_home_contains_title(resp_home):
     resp = resp_home
     assert_contains(resp, '<title>Diagnóstico - Jornada do Empreendedor de Startups</title>')
     assert_contains(resp, '>Diagnóstico | Jornada do Empreendedor</h1>')
+
+
+def test_home_has_form_1_on_context(resp_home):
+    resp = resp_home
+    assert_is_instance(resp.context['form'], DiagnosticoForm1)
 
 
 def test_resultado_status_code(resp_resultado):
