@@ -7,22 +7,23 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>Diagnóstico - Jornada do Empreendedor de Startups</title>
+    <title>Avaliação</title>
 </head>
 <body>
     <div class="jumbotron">
-        <h1 class="display-4">Diagnóstico | Jornada do Empreendedor</h1>
+        <h1 class="display-4">Avaliação</h1>
         <p class="lead">Uma simples ferramenta para saber em qual etapa da Jornada do Empreendedor, sua Startup está.</p>
     </div>
 
     <div>
-        <form action="" method="POST">
-            {% csrf_token %}
-            {{ form }}
-            <input type="submit">
-        </form>
-
+        {% for local_itens, it in items.items %}
+            <ul><h2>{{ local_itens }}</h2></ul>
+            {% for i in it %}
+                <li>{{ i }}</li>
+            {% endfor %}
+        {% endfor %}
     </div>
+
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

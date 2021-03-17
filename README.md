@@ -29,7 +29,6 @@ heroku config:set SECRET_KEY=segredo DEBUG=False ALLOWED_HOSTS='proll-service-ap
 
 #### Deploy
 ```bash
-# Criar app com nome e remote
 git push prod master
 ```
 
@@ -55,9 +54,42 @@ heroku config:set SECRET_KEY=segredo DEBUG=True ALLOWED_HOSTS='proll-service-app
 
 #### Deploy
 ```bash
-# Criar app com nome e remote
 git push homolog master
 ```
 
 #### Disponível em
 [https://proll-service-app-homolog.herokuapp.com/](https://proll-service-app-homolog.herokuapp.com/)
+
+-------
+
+### DEV
+
+#### Setup
+```bash
+# Criar app com nome e remote
+heroku create proll-service-app-staging --remote staging
+```
+
+```bash
+# Setar variáveis de ambiente
+heroku config:set SECRET_KEY=segredo DEBUG=True ALLOWED_HOSTS='proll-service-app-staging.herokuapp.com' heroku config:set DISABLE_COLLECTSTATIC=1 --remote staging
+```
+
+```bash
+# Criar .env basico
+cp contrib/env-sample .env
+```
+
+```bash
+#Rodar o projeto
+make dev
+```
+
+#### Deploy
+```bash
+# Criar app com nome e remote
+git push staging master
+```
+
+#### Disponível em
+[https://proll-service-app-staging.herokuapp.com/](https://proll-service-app-staging.herokuapp.com/)
