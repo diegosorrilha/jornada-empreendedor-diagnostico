@@ -24,4 +24,4 @@ def resultado(request, etapa):
         '5': 'Expansão',
     }
     template_name = 'resultado.html'
-    return render(request, template_name, {'nome_etapa': ETAPAS[etapa]})
+    return render(request, template_name, {'nome_etapaa': ETAPAS[etapa]})
