@@ -1,8 +1,63 @@
-# jornada-empreendedor-diagnostico
+# proll-service
 
 Sistema de diagnóstico para ajudar a Startup a identificar em qual etapa da Jornada do Empreendedor ela se encontra.
 
-Aplicação disponível em [https://diagnostico-jornada.herokuapp.com/](https://diagnostico-jornada.herokuapp.com/)
+Aplicação disponível em [https://proll-service.herokuapp.com/](https://proll-service.herokuapp.com/)
 
 [![Build Status](https://travis-ci.org/diegosorrilha/jornada-empreendedor-diagnostico.svg?branch=master)](https://travis-ci.org/diegosorrilha/jornada-empreendedor-diagnostico)
 [![codecov](https://codecov.io/gh/diegosorrilha/jornada-empreendedor-diagnostico/branch/master/graph/badge.svg)](https://codecov.io/gh/diegosorrilha/jornada-empreendedor-diagnostico)
+
+
+
+
+Setup
+=========
+
+### PROD
+
+#### Setup
+```bash
+# Criar app com nome e remote
+heroku create proll-service-app --remote prod
+```
+
+```bash
+# Setar variáveis de ambiente
+heroku config:set SECRET_KEY=segredo DEBUG=False ALLOWED_HOSTS='proll-service-app.herokuapp.com' heroku config:set DISABLE_COLLECTSTATIC=1 --remote prod
+```
+
+
+#### Deploy
+```bash
+# Criar app com nome e remote
+git push prod master
+```
+
+### Disponível em 
+
+[https://proll-service-app.herokuapp.com/](https://proll-service-app.herokuapp.com/)
+
+-------
+
+### HOMOLOG
+
+#### Setup
+```bash
+# Criar app com nome e remote
+heroku create proll-service-app-homolog --remote homolog
+```
+
+```bash
+# Setar variáveis de ambiente
+heroku config:set SECRET_KEY=segredo DEBUG=True ALLOWED_HOSTS='proll-service-app-homolog.herokuapp.com' heroku config:set DISABLE_COLLECTSTATIC=1 --remote homolog
+```
+
+
+#### Deploy
+```bash
+# Criar app com nome e remote
+git push homolog master
+```
+
+#### Disponível em
+[https://proll-service-app-homolog.herokuapp.com/](https://proll-service-app-homolog.herokuapp.com/)
