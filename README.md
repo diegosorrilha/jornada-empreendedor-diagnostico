@@ -1,6 +1,6 @@
 # proll-service
 
-Sistema de diagnóstico para ajudar a Startup a identificar em qual etapa da Jornada do Empreendedor ela se encontra.
+Sistema para avaliação de higienização hospitalar.
 
 Aplicação disponível em [https://proll-service.herokuapp.com/](https://proll-service.herokuapp.com/)
 
