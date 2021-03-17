@@ -17,11 +17,12 @@ def home(request):
 
 def resultado(request, etapa):
     ETAPAS = {
-        '1': 'Ideação',
+        '1': 'Ideaçãosss',
         '2': 'Pré-operação',
         '3': 'Operação',
         '4': 'Tração',
         '5': 'Expansão',
     }
     template_name = 'resultado.html'
-    return render(request, template_name, {'nome_etapaa': ETAPAS[etapa]})
+    return render(request, template_name, {'nome_etapa': ETAPAS[etapa]})
+open
