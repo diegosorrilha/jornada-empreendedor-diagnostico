@@ -1,1 +1,1 @@
-web: gunicorn diagnostico.wsgi --log-file -
+web: gunicorn proll_service.wsgi --log-file -
