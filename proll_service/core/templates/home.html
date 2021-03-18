@@ -1,33 +1,288 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Avaliação de higienização - Proll Services</title>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- CSS  -->
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
 
-    <title>Avaliação</title>
+      .icon-block {
+          padding: 0 15px;
+        }
+        .icon-block .material-icons {
+            font-size: inherit;
+        }
+
+        .vote {
+          float: left;
+          padding: 1rem;
+        }
+        .label-vote {
+          margin-left: 0.5rem;
+        }
+
+  </style>
+
 </head>
 <body>
-    <div class="jumbotron">
-        <h1 class="display-4">Avaliação</h1>
-        <p class="lead">Uma simples ferramenta para saber em qual etapa da Jornada do Empreendedor, sua Startup está.</p>
-    </div>
+  <nav class="light-blue darken-4" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Proll Services App</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#">Navbar Link</a></li>
+      </ul>
 
-    <div>
-        {% for local_itens, it in items.items %}
-            <ul><h2>{{ local_itens }}</h2></ul>
-            {% for i in it %}
-                <li>{{ i }}</li>
+      <ul id="nav-mobile" class="sidenav">
+        <li><a href="#">Navbar Link</a></li>
+      </ul>
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <h1 class="header center blue-text text-darken-4">Avaliação</h1>
+      <div class="row center">
+        <h5 class="header col s12 light">Avalie a higienização</h5>
+      </div>
+      <br><br>
+
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+
+      <form class="col s12">
+        <div class="row">
+
+          <div class="input-field col s6">
+            <!-- <input placeholder="Data da avaliação" id="date" type="text" class="validate"> -->
+            <i class="blue-text text-darken-4 material-icons prefix">date_range</i>
+            <input id="date" type="text" class="datepicker">
+            <label for="date">Data da avaliação</label>
+            <span class="helper-text" data-error="wrong" data-success="right">Campo obrigatório</span>
+          </div>
+
+        <div class="input-field col s6">
+          <i class="blue-text text-darken-4 material-icons prefix">account_box</i>
+          <input disabled id="icon_prefix" type="text" class="validate">
+          <label for="icon_prefix">Avaliador: {Juca}</label>
+          <span class="helper-text" data-error="wrong" data-success="right">Campo obrigatório</span>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s6">
+            <i class="blue-text text-darken-4 material-icons prefix">domain</i>
+            <input id="estabelecimento" type="text" class="validate">
+            <label for="estabelecimento">Estabelecimento</label>
+            <span class="helper-text" data-error="wrong" data-success="right">Campo obrigatório</span>
+          </div>
+
+          <div class="input-field col s6">
+            <i class="blue-text text-darken-4 material-icons prefix">room</i>
+            <input id="quarto" type="text" class="validate">
+            <label for="quarto">Quarto</label>
+            <span class="helper-text" data-error="wrong" data-success="right">Campo obrigatório</span>
+          </div>
+
+        </div>
+
+        <div class="row">
+
+            {% for local_itens, it in items.items %}
+                <h4 class="header center blue-text text-darken-4">{{ local_itens }}</h4>
+                <div class="input-field col s12">
+                  <ul>
+                      {% for i in it %}
+                        <fieldset>
+                          <li>
+                            <h5>{{ i }}:</h5>
+                            <div class="vote"><a class="waves-effect wave darken-2 btn-floating btn-large"><i class="material-icons">thumb_up</i></a><span class="label-vote">Conforme</span></div>
+                            <div class="vote"><a class="waves-effect red darken-2 btn-floating btn-large"><i class="material-icons left">thumb_down</i></a><span class="label-vote">Não conforme</span></div>
+                            <div class="vote"><a class="waves-effect blue-grey darken-2 btn-floating btn-large"><i class="material-icons left">remove_circle</i></a><span class="label-vote">Não se aplica</span></div>
+                            <!-- <input placeholder="Número do quarto" id="date" type="file" class="validate"> -->
+                          </li>
+                        </fieldset>
+                        <li></li>
+                    {% endfor %}
+                  </ul>
+
+                </div>
             {% endfor %}
-        {% endfor %}
-    </div>
+
+        </div>
 
 
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-</body>
+
+
+
+
+
+<!--        &lt;!&ndash; Avaliação quarto &ndash;&gt;-->
+<!--        <div class="row">-->
+<!--          <fieldset>-->
+<!--            <h4 class="header center blue-text text-darken-4">Quarto</h4>-->
+<!--            <div class="input-field col s12">-->
+<!--              <ul>-->
+<!--                <fieldset>-->
+<!--                  <li>-->
+<!--                    <h5>Teto:</h5>-->
+<!--                    <div class="vote"><a class="waves-effect wave darken-2 btn-floating btn-large"><i class="material-icons">thumb_up</i></a><span class="label-vote">Conforme</span></div>-->
+<!--                    <div class="vote"><a class="waves-effect red darken-2 btn-floating btn-large"><i class="material-icons left">thumb_down</i></a><span class="label-vote">Não conforme</span></div>-->
+<!--                    <div class="vote"><a class="waves-effect blue-grey darken-2 btn-floating btn-large"><i class="material-icons left">remove_circle</i></a><span class="label-vote">Não se aplica</span></div>-->
+<!--                    &lt;!&ndash; <input placeholder="Número do quarto" id="date" type="file" class="validate"> &ndash;&gt;-->
+<!--                  </li>-->
+<!--                </fieldset>-->
+
+<!--                <fieldset>-->
+<!--                  <li>-->
+<!--                    <h5>Teto:</h5>-->
+<!--                    <div class="vote"><a class="waves-effect wave darken-2 btn-floating btn-large"><i class="material-icons">thumb_up</i></a><span class="label-vote">Conforme</span></div>-->
+<!--                    <div class="vote"><a class="waves-effect red darken-2 btn-floating btn-large"><i class="material-icons left">thumb_down</i></a><span class="label-vote">Não conforme</span></div>-->
+<!--                    <div class="vote"><a class="waves-effect blue-grey darken-2 btn-floating btn-large"><i class="material-icons left">remove_circle</i></a><span class="label-vote">Não se aplica</span></div>-->
+<!--                    &lt;!&ndash; <input placeholder="Número do quarto" id="date" type="file" class="validate"> &ndash;&gt;-->
+<!--                  </li>-->
+<!--                </fieldset>-->
+
+
+<!--                <fieldset>-->
+<!--                  <li>-->
+<!--                    <h5>Teto:</h5>-->
+<!--                    <div class="vote"><a class="waves-effect wave darken-2 btn-floating btn-large"><i class="material-icons">thumb_up</i></a><span class="label-vote">Conforme</span></div>-->
+<!--                    <div class="vote"><a class="waves-effect red darken-2 btn-floating btn-large"><i class="material-icons left">thumb_down</i></a><span class="label-vote">Não conforme</span></div>-->
+<!--                    <div class="vote"><a class="waves-effect blue-grey darken-2 btn-floating btn-large"><i class="material-icons left">remove_circle</i></a><span class="label-vote">Não se aplica</span></div>-->
+<!--                    &lt;!&ndash; <input placeholder="Número do quarto" id="date" type="file" class="validate"> &ndash;&gt;-->
+<!--                  </li>-->
+<!--                </fieldset>-->
+
+
+<!--                <fieldset>-->
+<!--                  <li>-->
+<!--                    <h5>Teto:</h5>-->
+<!--                    <div class="vote"><a class="waves-effect wave darken-2 btn-floating btn-large"><i class="material-icons">thumb_up</i></a><span class="label-vote">Conforme</span></div>-->
+<!--                    <div class="vote"><a class="waves-effect red darken-2 btn-floating btn-large"><i class="material-icons left">thumb_down</i></a><span class="label-vote">Não conforme</span></div>-->
+<!--                    <div class="vote"><a class="waves-effect blue-grey darken-2 btn-floating btn-large"><i class="material-icons left">remove_circle</i></a><span class="label-vote">Não se aplica</span></div>-->
+<!--                    &lt;!&ndash; <input placeholder="Número do quarto" id="date" type="file" class="validate"> &ndash;&gt;-->
+<!--                  </li>-->
+<!--                </fieldset>-->
+
+
+<!--                <fieldset>-->
+<!--                  <li>-->
+<!--                    <h5>Teto:</h5>-->
+<!--                    <div class="vote"><a class="waves-effect wave darken-2 btn-floating btn-large"><i class="material-icons">thumb_up</i></a><span class="label-vote">Conforme</span></div>-->
+<!--                    <div class="vote"><a class="waves-effect red darken-2 btn-floating btn-large"><i class="material-icons left">thumb_down</i></a><span class="label-vote">Não conforme</span></div>-->
+<!--                    <div class="vote"><a class="waves-effect blue-grey darken-2 btn-floating btn-large"><i class="material-icons left">remove_circle</i></a><span class="label-vote">Não se aplica</span></div>-->
+<!--                    &lt;!&ndash; <input placeholder="Número do quarto" id="date" type="file" class="validate"> &ndash;&gt;-->
+<!--                  </li>-->
+<!--                </fieldset>-->
+
+
+<!--                &lt;!&ndash; http://127.0.0.1:5500/index.html &ndash;&gt;-->
+
+<!--                &lt;!&ndash; https://materializecss.com/helpers.html &ndash;&gt;-->
+
+
+<!--                <li>Teto</li>-->
+<!--                <li class="divider" tabindex="-1"></li>-->
+<!--                <li>Luminária</li>-->
+<!--                <li class="divider" tabindex="-1"></li>-->
+<!--                <li>Luz de emergência</li>-->
+<!--                <li class="divider" tabindex="-1"></li>-->
+<!--                <li>Detector de incêndio</li>-->
+<!--                <li class="divider" tabindex="-1"></li>-->
+<!--                <li>Saídas de ar</li>-->
+<!--                <li class="divider" tabindex="-1"></li>-->
+<!--                <li>Cano</li>-->
+<!--                <li class="divider" tabindex="-1"></li>-->
+<!--                <li>Ar condicionado</li>-->
+<!--                <li class="divider" tabindex="-1"></li>-->
+<!--                <li>Paredes e divisórias</li>-->
+<!--                <li class="divider" tabindex="-1"></li>-->
+<!--                <li>Ventilador</li>-->
+<!--                <li class="divider" tabindex="-1"></li>-->
+<!--                <li>Cortinas/biombo</li>-->
+<!--                <li class="divider" tabindex="-1"></li>-->
+<!--                <li>Cano Hidráulico</li>-->
+<!--                <li class="divider" tabindex="-1"></li>-->
+<!--                <li>Câmera</li>-->
+<!--                <li class="divider" tabindex="-1"></li>-->
+<!--                <li>Interruptor de luz e campainha</li>-->
+<!--                <li class="divider" tabindex="-1"></li>-->
+<!--                <li>Vidros</li>-->
+<!--                <li class="divider" tabindex="-1"></li>-->
+<!--                <li>Esquadrias</li>-->
+<!--                <li class="divider" tabindex="-1"></li>-->
+<!--                <li>Grades</li>-->
+
+<!--              </ul>-->
+<!--            </div>-->
+<!--          </fieldset>-->
+<!--        </div>-->
+
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="observacao" class="materialize-textarea"></textarea>
+          <label for="">Observação</label>
+          </div>
+        </div>
+
+        <div class="row center-align ">
+          <div class="input-field2">
+            <button class="btn waves-effect waves-light btn-large" type="submit" name="action">Avaliar
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
+        </div>
+
+      </form>
+
+      <footer class="page-footer light-blue darken-4">
+        <div class="container">
+          <div class="row">
+            <div class="col l4 offset-l2 s12">
+              <h5 class="white-text">Precisa de ajuda?</h5>
+              Entre em contato:
+              <a target="_blank" href="https://api.whatsapp.com/send?phone=31985045915&text=Olá!%20Sou%20{Fulano}.%20%20Poderia%20me%20ajudar%20?
+            ">
+                <img style="width: 2rem;" src="https://logodownload.org/wp-content/uploads/2015/04/whatsapp-logo-1.png" alt="" srcset="">
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-copyright">
+          <div class="container">
+          © 2021 - Proll Services App
+          </div>
+        </div>
+      </footer>
+
+  <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.datepicker');
+      var instances = M.Datepicker.init(elems, options);
+    });
+
+    // Or with jQuery
+
+    $(document).ready(function(){
+      $('.datepicker').datepicker();
+    });
+
+  </script>
+
+  </body>
 </html>
+
+
