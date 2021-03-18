@@ -126,7 +126,7 @@
 
         <div class="row center-align ">
           <div class="input-field2">
-            <button class="btn waves-effect waves-light btn-large" type="submit" name="action">Avaliar
+            <button class="btn waves-effect waves-light btn-large" type="submit" onclick="clicked()" name="action">Avaliar
               <i class="material-icons right">send</i>
             </button>
           </div>
@@ -160,18 +160,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
     <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() {
-      var elems = document.querySelectorAll('.datepicker');
-      var instances = M.Datepicker.init(elems, options);
-    });
+        document.addEventListener('DOMContentLoaded', function() {
+          var elems = document.querySelectorAll('.datepicker');
+          var instances = M.Datepicker.init(elems, options);
+        });
 
-    // Or with jQuery
+        // Or with jQuery
 
-    $(document).ready(function(){
-      $('.datepicker').datepicker();
-    });
+        $(document).ready(function(){
+          $('.datepicker').datepicker();
+        });
 
-  </script>
+        function clicked() {
+          alert('Sua avaliação foi enviado com sucesso!');
+        }
+
+      </script>
 
   </body>
 </html>
