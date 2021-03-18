@@ -58,20 +58,21 @@
   <div class="container">
     <div class="row">
 
-      <form class="col s12">
+      <form method="post" action="#" class="col s12">
+        {% csrf_token %}
         <div class="row">
 
           <div class="input-field col s6">
             <!-- <input placeholder="Data da avaliação" id="date" type="text" class="validate"> -->
             <i class="blue-text text-darken-4 material-icons prefix">date_range</i>
-            <input id="date" type="text" class="datepicker">
+            <input id="date" name="date" type="text" class="datepicker">
             <label for="date">Data da avaliação</label>
             <span class="helper-text" data-error="wrong" data-success="right">Campo obrigatório</span>
           </div>
 
         <div class="input-field col s6">
           <i class="blue-text text-darken-4 material-icons prefix">account_box</i>
-          <input disabled id="icon_prefix" type="text" class="validate">
+          <input disabled name="avaliador" id="icon_prefix" type="text" class="validate">
           <label for="icon_prefix">Avaliador: {Juca}</label>
           <span class="helper-text" data-error="wrong" data-success="right">Campo obrigatório</span>
         </div>
@@ -79,14 +80,14 @@
         <div class="row">
           <div class="input-field col s6">
             <i class="blue-text text-darken-4 material-icons prefix">domain</i>
-            <input id="estabelecimento" type="text" class="validate">
+            <input id="estabelecimento" name="estabelecimento" type="text" class="validate">
             <label for="estabelecimento">Estabelecimento</label>
             <span class="helper-text" data-error="wrong" data-success="right">Campo obrigatório</span>
           </div>
 
           <div class="input-field col s6">
             <i class="blue-text text-darken-4 material-icons prefix">room</i>
-            <input id="quarto" type="text" class="validate">
+            <input id="quarto" name="quarto"  type="text" class="validate">
             <label for="quarto">Quarto</label>
             <span class="helper-text" data-error="wrong" data-success="right">Campo obrigatório</span>
           </div>
@@ -106,19 +107,19 @@
                             <div class="vote"><a class="waves-effect wave darken-2 btn-floating btn-large"><i class="material-icons">thumb_up</i></a><span class="label-vote">Conforme</span></div>
                             <div class="vote start-camera"><a class="waves-effect red darken-2 btn-floating btn-large"><i class="material-icons left">thumb_down</i></a><span class="label-vote">Não conforme</span></div>
                             <div class="vote"><a class="waves-effect blue-grey darken-2 btn-floating btn-large"><i class="material-icons left">remove_circle</i></a><span class="label-vote">Não se aplica</span></div>
-<!--                             <input placeholder="" id="date" type="file" class="validate">-->
+                             <input placeholder="" name="{{i}}-foto" id="download-photo" type="text" class="validate">
 
 
                             <div id="webcam-container" class="webcam-container col-12 d-none p-0 m-0">
                               <video id="webcam" autoplay playsinline width="640" height="480"></video>
                               <canvas id="canvas" class="d-none"></canvas>
                               <div class="flash"></div>
-                              <audio id="snapSound" src="audio/snap.wav" preload = "auto"></audio>
+<!--                              <audio id="snapSound" src="audio/snap.wav" preload = "auto"></audio>-->
                           </div>
                           <div id="cameraControls" class="cameraControls">
                               <a href="#" id="exit-app" title="Exit App" class="d-none"><i class="material-icons">exit_to_app</i></a>
                               <a href="#" id="take-photo" title="Take Photo"><i class="material-icons">camera_alt</i></a>
-                              <a href="#" id="download-photo" download="selfie.png" target="_blank" title="Save Photo" class="d-none"><i class="material-icons">file_download</i></a>
+                              <a href="#" id="download-photos" download="selfie.png" target="_blank" title="Save Photo" class="d-none"><i class="material-icons">file_download</i></a>
                               <a href="#" id="resume-camera"  title="Resume Camera" class="d-none"><i class="material-icons">camera_front</i></a>
                           </div>
 <!--                            <video id="webcam" autoplay playsinline width="640" height="480"></video>-->
@@ -147,7 +148,7 @@
 
         <div class="row center-align ">
           <div class="input-field2">
-            <button class="btn waves-effect waves-light btn-large" type="submit" onclick="clicked()" name="action">Avaliar
+            <button class="btn waves-effect waves-light btn-large" type="submit" onclick="clicked()" >Avaliar
               <i class="material-icons right">send</i>
             </button>
           </div>
@@ -198,6 +199,9 @@
       </script>
 
       <script>
+      // https://github.com/bensonruan/webcam-easy
+      // https://bensonruan.com/how-to-access-webcam-and-take-photo-with-javascript/#
+      // https://materializecss.com/modals.html#!
 
         const webcamElement = document.getElementById('webcam');
 
@@ -264,7 +268,11 @@
         $("#take-photo").click(function () {
             //beforeTakePhoto();
             let picture = webcam.snap();
-            document.querySelector('#download-photo').href = picture;
+            // enviar base64 em um input hidden
+
+
+            //document.querySelector('#download-photo').href = picture;
+            document.querySelector('#download-photo').value = picture;
             afterTakePhoto();
         });
 

@@ -75,7 +75,11 @@ def home(request):
     template_name = 'home.html'
     items = get_items()
 
-    print(f'METODO: {request.method}')
+    if request.method == 'POST':
+        print(request.POST)
+
+    print(request.GET)
+
 
     # form = DiagnosticoForm1()
     # return render(request, template_name, {'form': form})

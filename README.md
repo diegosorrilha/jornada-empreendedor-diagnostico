@@ -23,7 +23,7 @@ heroku create proll-service-app --remote prod
 
 ```bash
 # Setar variáveis de ambiente
-heroku config:set SECRET_KEY=segredo DEBUG=False ALLOWED_HOSTS='proll-service-app.herokuapp.com' heroku config:set DISABLE_COLLECTSTATIC=1 --remote prod
+heroku config:set SECRET_KEY=segredo DEBUG=False ALLOWED_HOSTS='proll-service-app.herokuapp.com' DISABLE_COLLECTSTATIC=1 --remote prod
 ```
 
 
@@ -48,7 +48,7 @@ heroku create proll-service-app-homolog --remote homolog
 
 ```bash
 # Setar variáveis de ambiente
-heroku config:set SECRET_KEY=segredo DEBUG=True ALLOWED_HOSTS='proll-service-app-homolog.herokuapp.com' heroku config:set DISABLE_COLLECTSTATIC=1 --remote homolog
+heroku config:set SECRET_KEY=segredo DEBUG=True ALLOWED_HOSTS='proll-service-app-homolog.herokuapp.com' DISABLE_COLLECTSTATIC=1 --remote homolog
 ```
 
 
@@ -72,7 +72,7 @@ heroku create proll-service-app-staging --remote staging
 
 ```bash
 # Setar variáveis de ambiente
-heroku config:set SECRET_KEY=segredo DEBUG=True ALLOWED_HOSTS='proll-service-app-staging.herokuapp.com' heroku config:set DISABLE_COLLECTSTATIC=1 --remote staging
+heroku config:set SECRET_KEY=segredo DEBUG=True ALLOWED_HOSTS='proll-service-app-staging.herokuapp.com' DISABLE_COLLECTSTATIC=1 --remote staging
 ```
 
 ```bash
