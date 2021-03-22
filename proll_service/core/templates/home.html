@@ -32,6 +32,12 @@
           display: none;
         }
 
+        #cameraControls {
+          position: relative;
+          top: -7rem;
+        }
+
+
   </style>
   <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
 
@@ -118,11 +124,11 @@
                               <input placeholder="" name="{{i}}-foto" id="download-photo" type="text" class="validate">
                               <video id="webcam" autoplay playsinline max-width="640" max-height="480"></video>
                               <canvas id="canvas" class="d-none"></canvas>
-                              <div id="cameraControls" class="cameraControls">
-                                  <a href="#" id="exit-app" title="Exit App" class="d-none"><i class="material-icons">exit_to_app</i></a>
-                                  <a href="#" id="take-photo" title="Take Photo"><i class="material-icons">camera_alt</i></a>
-                                  <a href="#" id="download-photos" download="selfie.png" target="_blank" title="Save Photo" class="d-none"><i class="material-icons">file_download</i></a>
-                                  <a href="#" id="resume-camera"  title="Resume Camera" class="d-none"><i class="material-icons">camera_front</i></a>
+                              <div id="cameraControls" class="cameraControls center-align">
+<!--                                  <a href="#" id="exit-app" title="Exit App" class="d-none"><i class="material-icons">exit_to_app</i></a>-->
+                                  <a href="#" id="take-photo" title="Take Photo"><i class="large material-icons">camera_alt</i></a>
+<!--                                  <a href="#" id="download-photos" download="selfie.png" target="_blank" title="Save Photo" class="d-none"><i class="material-icons">file_download</i></a>-->
+<!--                                  <a href="#" id="resume-camera"  title="Resume Camera" class="d-none"><i class="material-icons">camera_front</i></a>-->
                               </div>
                           </div>
 
@@ -209,10 +215,8 @@
 
         const webcam = new Webcam(webcamElement, 'user', canvasElement, snapSoundElement);
 
-
         $(".start-camera").click(function () {
           webcam.flip();
-          // webcam.start();
           $('#webcam-container').show();
             webcam.start()
              .then(result =>{
@@ -222,49 +226,6 @@
                    console.log(err);
                });
         });
-
-        $('#cameraFlip').click(function() {
-            webcam.flip();
-            webcam.start();
-        });
-
-        $('#closeError').click(function() {
-            $("#webcam-switch").prop('checked', false).change();
-        });
-
-        function displayError(err = ''){
-            if(err!=''){
-                $("#errorMsg").html(err);
-            }
-            $("#errorMsg").removeClass("d-none");
-        }
-
-        function cameraStarted(){
-            $("#errorMsg").addClass("d-none");
-            $('.flash').hide();
-            $("#webcam-caption").html("on");
-            $("#webcam-control").removeClass("webcam-off");
-            $("#webcam-control").addClass("webcam-on");
-            $(".webcam-container").removeClass("d-none");
-            if( webcam.webcamList.length > 1){
-                $("#cameraFlip").removeClass('d-none');
-            }
-            $("#wpfront-scroll-top-container").addClass("d-none");
-            window.scrollTo(0, 0);
-            $('body').css('overflow-y','hidden');
-        }
-
-        function cameraStopped(){
-            $("#errorMsg").addClass("d-none");
-            $("#wpfront-scroll-top-container").removeClass("d-none");
-            $("#webcam-control").removeClass("webcam-on");
-            $("#webcam-control").addClass("webcam-off");
-            $("#cameraFlip").addClass('d-none');
-            $(".webcam-container").addClass("d-none");
-            $("#webcam-caption").html("Click to Start Camera");
-            $('.md-modal').removeClass('md-show');
-        }
-
 
         $("#take-photo").click(function () {
             //beforeTakePhoto();
@@ -278,13 +239,8 @@
         });
 
         function beforeTakePhoto(){
-            $('#canvas')
-                .show()
-                .animate({opacity: 0.3}, 500)
-                .fadeOut(500)
-                .css({'opacity': 0.7});
-            window.scrollTo(0, 0);
-            $('#webcam-control').addClass('d-none');
+            //window.scrollTo(0, 0);
+            //$('#webcam-control').addClass('d-none');
             $('#cameraControls').addClass('d-none');
         }
 
@@ -294,34 +250,13 @@
             $('#webcam').hide();
             $('#canvas').show()
             //$('#canvas').removeClass('d-none');
-            $('#take-photo').addClass('d-none');
+            $('#take-photo').hide();
             $('#exit-app').removeClass('d-none');
             $('#download-photo').removeClass('d-none');
             $('#resume-camera').removeClass('d-none');
             $('#cameraControls').removeClass('d-none');
         }
 
-        function removeCapture(){
-            $('#canvas').addClass('d-none');
-            $('#webcam-control').removeClass('d-none');
-            $('#cameraControls').removeClass('d-none');
-            $('#take-photo').removeClass('d-none');
-            $('#exit-app').addClass('d-none');
-            $('#download-photo').addClass('d-none');
-            $('#resume-camera').addClass('d-none');
-        }
-
-        $("#resume-camera").click(function () {
-            webcam.stream()
-                .then(facingMode =>{
-                    removeCapture();
-                });
-        });
-
-        $("#exit-app").click(function () {
-            removeCapture();
-            $("#webcam-switch").prop("checked", false).change();
-        });
       </script>
 
 
