@@ -28,6 +28,9 @@
         #webcam {
           width: 100%;
         }
+        #webcam-container, #canvas {
+          display: none;
+        }
 
   </style>
   <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
@@ -110,20 +113,17 @@
                             <div class="vote"><a class="waves-effect wave darken-2 btn-floating btn-large"><i class="material-icons">thumb_up</i></a><span class="label-vote">Conforme</span></div>
                             <div class="vote start-camera"><a class="waves-effect red darken-2 btn-floating btn-large"><i class="material-icons left">thumb_down</i></a><span class="label-vote">Não conforme</span></div>
                             <div class="vote"><a class="waves-effect blue-grey darken-2 btn-floating btn-large"><i class="material-icons left">remove_circle</i></a><span class="label-vote">Não se aplica</span></div>
-                             <input placeholder="" name="{{i}}-foto" id="download-photo" type="text" class="validate">
-
 
                             <div id="webcam-container" class="webcam-container col-6 d-none p-0 m-0">
+                              <input placeholder="" name="{{i}}-foto" id="download-photo" type="text" class="validate">
                               <video id="webcam" autoplay playsinline max-width="640" max-height="480"></video>
                               <canvas id="canvas" class="d-none"></canvas>
-                              <div class="flash"></div>
-<!--                              <audio id="snapSound" src="audio/snap.wav" preload = "auto"></audio>-->
-                          </div>
-                          <div id="cameraControls" class="cameraControls">
-                              <a href="#" id="exit-app" title="Exit App" class="d-none"><i class="material-icons">exit_to_app</i></a>
-                              <a href="#" id="take-photo" title="Take Photo"><i class="material-icons">camera_alt</i></a>
-                              <a href="#" id="download-photos" download="selfie.png" target="_blank" title="Save Photo" class="d-none"><i class="material-icons">file_download</i></a>
-                              <a href="#" id="resume-camera"  title="Resume Camera" class="d-none"><i class="material-icons">camera_front</i></a>
+                              <div id="cameraControls" class="cameraControls">
+                                  <a href="#" id="exit-app" title="Exit App" class="d-none"><i class="material-icons">exit_to_app</i></a>
+                                  <a href="#" id="take-photo" title="Take Photo"><i class="material-icons">camera_alt</i></a>
+                                  <a href="#" id="download-photos" download="selfie.png" target="_blank" title="Save Photo" class="d-none"><i class="material-icons">file_download</i></a>
+                                  <a href="#" id="resume-camera"  title="Resume Camera" class="d-none"><i class="material-icons">camera_front</i></a>
+                              </div>
                           </div>
 
                           </li>
@@ -213,6 +213,7 @@
         $(".start-camera").click(function () {
           webcam.flip();
           // webcam.start();
+          $('#webcam-container').show();
             webcam.start()
              .then(result =>{
                 console.log("webcam started");
@@ -277,7 +278,7 @@
         });
 
         function beforeTakePhoto(){
-            $('.flash')
+            $('#canvas')
                 .show()
                 .animate({opacity: 0.3}, 500)
                 .fadeOut(500)
@@ -291,7 +292,8 @@
             console.log('after take photo')
             webcam.stop();
             $('#webcam').hide();
-            $('#canvas').removeClass('d-none');
+            $('#canvas').show()
+            //$('#canvas').removeClass('d-none');
             $('#take-photo').addClass('d-none');
             $('#exit-app').removeClass('d-none');
             $('#download-photo').removeClass('d-none');
