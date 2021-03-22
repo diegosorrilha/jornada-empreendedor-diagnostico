@@ -25,6 +25,9 @@
         .label-vote {
           margin-left: 0.5rem;
         }
+        #webcam {
+          width: 100%;
+        }
 
   </style>
   <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
@@ -110,8 +113,8 @@
                              <input placeholder="" name="{{i}}-foto" id="download-photo" type="text" class="validate">
 
 
-                            <div id="webcam-container" class="webcam-container col-12 d-none p-0 m-0">
-                              <video id="webcam" autoplay playsinline width="640" height="480"></video>
+                            <div id="webcam-container" class="webcam-container col-6 d-none p-0 m-0">
+                              <video id="webcam" autoplay playsinline max-width="640" max-height="480"></video>
                               <canvas id="canvas" class="d-none"></canvas>
                               <div class="flash"></div>
 <!--                              <audio id="snapSound" src="audio/snap.wav" preload = "auto"></audio>-->
