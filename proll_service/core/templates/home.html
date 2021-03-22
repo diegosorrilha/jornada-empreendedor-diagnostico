@@ -122,11 +122,6 @@
                               <a href="#" id="download-photos" download="selfie.png" target="_blank" title="Save Photo" class="d-none"><i class="material-icons">file_download</i></a>
                               <a href="#" id="resume-camera"  title="Resume Camera" class="d-none"><i class="material-icons">camera_front</i></a>
                           </div>
-<!--                            <video id="webcam" autoplay playsinline width="640" height="480"></video>-->
-<!--                            <canvas id="canvas" class="d-none"></canvas>-->
-<!--                            <p onclick="savePicture()">Tirar foto</p>-->
-<!--                            <audio id="snapSound" src="audio/snap.wav" preload = "auto"></audio>-->
-
 
                           </li>
                         </fieldset>
@@ -213,6 +208,8 @@
 
 
         $(".start-camera").click(function () {
+          webcam.flip();
+          // webcam.start();
             webcam.start()
              .then(result =>{
                 console.log("webcam started");
@@ -289,7 +286,8 @@
 
         function afterTakePhoto(){
             console.log('after take photo')
-            //webcam.stop();
+            webcam.stop();
+            $('#webcam').hide();
             $('#canvas').removeClass('d-none');
             $('#take-photo').addClass('d-none');
             $('#exit-app').removeClass('d-none');
