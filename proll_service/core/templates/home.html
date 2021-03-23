@@ -107,7 +107,7 @@
         </div>
 
         <div class="row">
-
+<!--            TODO: abrir em modal.. para todo mundo e pegar pelo data-item de quem é e printar no <canva>-->
             {% for local_itens, it in items.items %}
                 <h4 class="header center blue-text text-darken-4">{{ local_itens }}</h4>
                 <div class="input-field col s12">
@@ -120,17 +120,33 @@
                             <div class="vote start-camera"><a class="waves-effect red darken-2 btn-floating btn-large"><i class="material-icons left">thumb_down</i></a><span class="label-vote">Não conforme</span></div>
                             <div class="vote"><a class="waves-effect blue-grey darken-2 btn-floating btn-large"><i class="material-icons left">remove_circle</i></a><span class="label-vote">Não se aplica</span></div>
 
-                            <div id="webcam-container" class="webcam-container col-6 d-none p-0 m-0">
-                              <input placeholder="" name="{{i}}-foto" id="download-photo" type="text" class="validate">
-                              <video id="webcam" autoplay playsinline max-width="640" max-height="480"></video>
-                              <canvas id="canvas" class="d-none"></canvas>
-                              <div id="cameraControls" class="cameraControls center-align">
-<!--                                  <a href="#" id="exit-app" title="Exit App" class="d-none"><i class="material-icons">exit_to_app</i></a>-->
-                                  <a href="#" id="take-photo" title="Take Photo"><i class="large material-icons">camera_alt</i></a>
-<!--                                  <a href="#" id="download-photos" download="selfie.png" target="_blank" title="Save Photo" class="d-none"><i class="material-icons">file_download</i></a>-->
-<!--                                  <a href="#" id="resume-camera"  title="Resume Camera" class="d-none"><i class="material-icons">camera_front</i></a>-->
+                            <!-- Modal Trigger -->
+                            <a class="waves-effect waves-light btn modal-trigger start-camera" href="#modal1">Modal</a>
+
+                            <!-- Modal Structure -->
+                            <div id="modal1" class="modal">
+                              <div class="modal-content">
+                                <h4>Modal Header</h4>
+                                <p>A bunch of text</p>
+                                <div id="webcam-container" class="webcam-container col-6 d-none p-0 m-0">
+                                <input placeholder="" name="{{i}}-foto" id="download-photo" type="text" class="validate">
+                                <video id="webcam" autoplay playsinline max-width="640" max-height="480"></video>
+                                <canvas id="canvas" class="d-none"></canvas>
+                                <div id="cameraControls" class="cameraControls center-align">
+  <!--                                  <a href="#" id="exit-app" title="Exit App" class="d-none"><i class="material-icons">exit_to_app</i></a>-->
+                                    <a href="#" id="take-photo" title="Take Photo"><i class="large material-icons">camera_alt</i></a>
+  <!--                                  <a href="#" id="download-photos" download="selfie.png" target="_blank" title="Save Photo" class="d-none"><i class="material-icons">file_download</i></a>-->
+  <!--                                  <a href="#" id="resume-camera"  title="Resume Camera" class="d-none"><i class="material-icons">camera_front</i></a>-->
+                                </div>
                               </div>
-                          </div>
+                              </div>
+                              <div class="modal-footer">
+                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                              </div>
+                            </div>
+
+
+
 
                           </li>
                         </fieldset>
@@ -189,12 +205,15 @@
         document.addEventListener('DOMContentLoaded', function() {
           var elems = document.querySelectorAll('.datepicker');
           var instances = M.Datepicker.init(elems, options);
+          var elems = document.querySelectorAll('.modal');
+          var instances = M.Modal.init(elems, options);
         });
 
         // Or with jQuery
 
         $(document).ready(function(){
           $('.datepicker').datepicker();
+          $('.modal').modal();
         });
 
         function clicked() {
