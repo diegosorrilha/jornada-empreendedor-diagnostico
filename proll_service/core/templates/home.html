@@ -22,21 +22,19 @@
           float: left;
           padding: 1rem;
         }
+
         .label-vote {
           margin-left: 0.5rem;
         }
+
         #webcam {
           width: 100%;
-        }
-        #webcam-container, #canvas {
-          display: none;
         }
 
         #cameraControls {
           position: relative;
-          top: -7rem;
+          top: -20rem;
         }
-
 
   </style>
   <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
@@ -92,7 +90,7 @@
         <div class="row">
           <div class="input-field col s6">
             <i class="blue-text text-darken-4 material-icons prefix">domain</i>
-            <input id="estabelecimento" name="estabelecimento" type="text" class="validate">
+            <input id="estabelecimento" name="estabelecimento" type="text" class="validate" onchange="saveData(this)">
             <label for="estabelecimento">Estabelecimento</label>
             <span class="helper-text" data-error="wrong" data-success="right">Campo obrigatório</span>
           </div>
@@ -117,37 +115,9 @@
                           <li>
                             <h5>{{ i }}:</h5>
                             <div class="vote"><a class="waves-effect wave darken-2 btn-floating btn-large"><i class="material-icons">thumb_up</i></a><span class="label-vote">Conforme</span></div>
-                            <div class="vote start-camera"><a class="waves-effect red darken-2 btn-floating btn-large"><i class="material-icons left">thumb_down</i></a><span class="label-vote">Não conforme</span></div>
+                            <div class="vote start-camera"><a class="waves-effect red darken-2 btn-floating btn-large modal-trigger" href="#modal1"><i class="material-icons left">thumb_down</i></a><span class="label-vote">Não conforme</span></div>
                             <div class="vote"><a class="waves-effect blue-grey darken-2 btn-floating btn-large"><i class="material-icons left">remove_circle</i></a><span class="label-vote">Não se aplica</span></div>
-
-                            <!-- Modal Trigger -->
-                            <a class="waves-effect waves-light btn modal-trigger start-camera" href="#modal1">Modal</a>
-
-                            <!-- Modal Structure -->
-                            <div id="modal1" class="modal">
-                              <div class="modal-content">
-                                <h4>Modal Header</h4>
-                                <p>A bunch of text</p>
-                                <div id="webcam-container" class="webcam-container col-6 d-none p-0 m-0">
-                                <input placeholder="" name="{{i}}-foto" id="download-photo" type="text" class="validate">
-                                <video id="webcam" autoplay playsinline max-width="640" max-height="480"></video>
-                                <canvas id="canvas" class="d-none"></canvas>
-                                <div id="cameraControls" class="cameraControls center-align">
-  <!--                                  <a href="#" id="exit-app" title="Exit App" class="d-none"><i class="material-icons">exit_to_app</i></a>-->
-                                    <a href="#" id="take-photo" title="Take Photo"><i class="large material-icons">camera_alt</i></a>
-  <!--                                  <a href="#" id="download-photos" download="selfie.png" target="_blank" title="Save Photo" class="d-none"><i class="material-icons">file_download</i></a>-->
-  <!--                                  <a href="#" id="resume-camera"  title="Resume Camera" class="d-none"><i class="material-icons">camera_front</i></a>-->
-                                </div>
-                              </div>
-                              </div>
-                              <div class="modal-footer">
-                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-                              </div>
-                            </div>
-
-
-
-
+                            <input placeholder="" name="{{i}}-foto" id="download-photo" type="text" class="validate">
                           </li>
                         </fieldset>
 
@@ -156,6 +126,22 @@
 
                 </div>
             {% endfor %}
+
+          <div id="modal1" class="modal">
+            <div class="modal-content">
+              <div id="webcam-container" class="webcam-container col-12 d-none p-0 m-0">
+                <h5 class="blue-text text-darken-4 center-align">Tire uma foto para registrar a não conformidade.</h5>
+                <video id="webcam" autoplay playsinline max-width="640"></video>
+                <canvas id="canvas" class="d-none"></canvas>
+                <div id="cameraControls" class="cameraControls center-align">
+  <!--                  <a href="#" id="exit-app" title="Exit App" class="d-none"><i class="material-icons">exit_to_app</i></a>-->
+                    <a href="#" id="take-photo" title="Take Photo"><i class="large material-icons">camera_alt</i></a>
+  <!--                  <a href="#" id="download-photos" download="selfie.png" target="_blank" title="Save Photo" class="d-none"><i class="material-icons">file_download</i></a>-->
+  <!--                  <a href="#" id="resume-camera"  title="Resume Camera" class="d-none"><i class="material-icons">camera_front</i></a>-->
+                </div>
+              </div>
+            </div>
+          </div>
 
         </div>
 
@@ -214,11 +200,71 @@
         $(document).ready(function(){
           $('.datepicker').datepicker();
           $('.modal').modal();
+
+
         });
 
         function clicked() {
           alert('Sua avaliação foi enviado com sucesso!');
         };
+
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                let cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    let cookie = jQuery.trim(cookies[i]);
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        function saveData(el) {
+        // Pegar o identificador (usuario, avaliação, etc) tabela avaliação
+
+        // Avaliacao.avaliador_id
+        // Avaliacao.estabelecimento
+        // Avaliacao.quarto
+        // Avaliacao.avaliador
+
+          let csrftoken = getCookie('csrftoken');
+          let url = "{% url 'save_data' %}";
+          let field = el.name;
+          let value = el.value;
+
+          data = {
+                "csrfmiddlewaretoken": csrftoken,
+                "field": field,
+                "value": value
+            }
+
+          $.ajax({
+            type: 'POST',
+            url: url,
+            data: data,
+            success: function (data) {
+                $.alert('Solicitação realizada com sucesso!');
+            },
+            error: function (data) {
+                $.alert(
+                    'Solicitação não realizada. ' +
+                    'Tente novamente ou entre em contando com “engenharia@jeitto.com.br“'
+                );
+            }
+
+
+          });
+
+
+
+
+        }
+
       </script>
 
       <script>
@@ -235,8 +281,16 @@
         const webcam = new Webcam(webcamElement, 'user', canvasElement, snapSoundElement);
 
         $(".start-camera").click(function () {
+
+          if( webcam.webcamList.length > 0){
+              webcam.stop();
+              $('#webcam').show();
+              $('#canvas').hide();
+              $('#take-photo').show();
+          }
+
           webcam.flip();
-          $('#webcam-container').show();
+          // $('#webcam-container').show();
             webcam.start()
              .then(result =>{
                 console.log("webcam started");
@@ -264,6 +318,7 @@
         }
 
         function afterTakePhoto(){
+            $('.modal').modal('close')
             console.log('after take photo')
             webcam.stop();
             $('#webcam').hide();
@@ -274,6 +329,7 @@
             $('#download-photo').removeClass('d-none');
             $('#resume-camera').removeClass('d-none');
             $('#cameraControls').removeClass('d-none');
+
         }
 
       </script>

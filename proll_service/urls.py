@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from proll_service.core.views import home
+from proll_service.core.views import home, save_data
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
+    path('save-data', save_data, name='save_data'),
 ]

@@ -1,6 +1,8 @@
 import logging
 
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
+
 from django.urls import reverse
 
 # from .forms import DiagnosticoForm1
@@ -67,6 +69,12 @@ def get_items():
     }
 
     return items
+
+
+def save_data(request):
+    print(f'vai salvar data {request.POST}')
+
+    return JsonResponse({'message': "Updated with SUCCESS"}, status=200)
 
 
 def home(request):
