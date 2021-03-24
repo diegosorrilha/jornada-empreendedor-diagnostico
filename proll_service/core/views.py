@@ -9,6 +9,16 @@ from django.urls import reverse
 
 logger = logging.getLogger(__name__)
 
+def get_establishments():
+    establishments = [
+        'Hospital Santa Luzia',
+        'Hospital Madre Tereza'
+    ]
+
+    return establishments
+
+
+
 
 def get_items():
     items = {
@@ -81,6 +91,7 @@ def home(request):
     logger.info('iniciando')
     print('iniciando')
     template_name = 'home.html'
+    establishments = get_establishments()
     items = get_items()
 
     if request.method == 'POST':
@@ -92,4 +103,4 @@ def home(request):
     # form = DiagnosticoForm1()
     # return render(request, template_name, {'form': form})
 
-    return render(request, template_name, {'items': items})
+    return render(request, template_name, {'items': items, 'establishments': establishments})

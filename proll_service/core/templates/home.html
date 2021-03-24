@@ -90,8 +90,13 @@
         <div class="row">
           <div class="input-field col s6">
             <i class="blue-text text-darken-4 material-icons prefix">domain</i>
-            <input id="estabelecimento" name="estabelecimento" type="text" class="validate" onchange="saveData(this)">
-            <label for="estabelecimento">Estabelecimento</label>
+            <select>
+              <option value="" disabled selected>Escolha o estabelecimento</option>
+              {% for establishment in establishments %}
+                <option value="{{ establishment }}_id">{{ establishment }}</option>
+              {% endfor %}
+            </select>
+            <label>Estabelecimento</label>
             <span class="helper-text" data-error="wrong" data-success="right">Campo obrigatório</span>
           </div>
 
@@ -105,7 +110,6 @@
         </div>
 
         <div class="row">
-<!--            TODO: abrir em modal.. para todo mundo e pegar pelo data-item de quem é e printar no <canva>-->
             {% for local_itens, it in items.items %}
                 <h4 class="header center blue-text text-darken-4">{{ local_itens }}</h4>
                 <div class="input-field col s12">
@@ -189,18 +193,22 @@
 
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function() {
-          var elems = document.querySelectorAll('.datepicker');
-          var instances = M.Datepicker.init(elems, options);
-          var elems = document.querySelectorAll('.modal');
-          var instances = M.Modal.init(elems, options);
+          //var elems = document.querySelectorAll('.datepicker');
+          //var instances = M.Datepicker.init(elems);
+
+          //var elems = document.querySelectorAll('.modal');
+          //var instances = M.Datepicker.init(elems);
+
         });
+
+
 
         // Or with jQuery
 
         $(document).ready(function(){
           $('.datepicker').datepicker();
           $('.modal').modal();
-
+          $('select').formSelect();
 
         });
 
@@ -228,6 +236,8 @@
         // Pegar o identificador (usuario, avaliação, etc) tabela avaliação
 
         // Avaliacao.avaliador_id
+        //
+        //
         // Avaliacao.estabelecimento
         // Avaliacao.quarto
         // Avaliacao.avaliador
