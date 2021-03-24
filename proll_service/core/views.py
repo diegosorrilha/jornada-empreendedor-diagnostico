@@ -92,8 +92,6 @@ def save_data(request):
     return JsonResponse({'message': "Updated with SUCCESS"}, status=200)
 
 
-
-
 def home(request):
     logger.info('iniciando')
     print('iniciando')

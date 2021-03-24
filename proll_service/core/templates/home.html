@@ -118,12 +118,51 @@
                         <fieldset>
                           <li>
                             <h5>{{ i }}:</h5>
-                            <div class="vote"><a class="waves-effect wave darken-2 btn-floating btn-large"><i class="material-icons">thumb_up</i></a><span class="label-vote">Conforme</span></div>
-                            <div class="vote start-camera"><a class="waves-effect red darken-2 btn-floating btn-large modal-trigger" href="#modal1"><i class="material-icons left">thumb_down</i></a><span class="label-vote">Não conforme</span></div>
-                            <div class="vote"><a class="waves-effect blue-grey darken-2 btn-floating btn-large"><i class="material-icons left">remove_circle</i></a><span class="label-vote">Não se aplica</span></div>
-                            <input placeholder="" name="{{i}}-foto" id="download-photo" type="text" class="validate">
+
+                            <div class="vote">
+                                <a class="waves-effect wave darken-2 btn-floating btn-large">
+                                  <i class="material-icons">thumb_up</i>
+                                </a>
+                              <span class="label-vote">Conforme</span>
+                            </div>
+
+                            <div class="vote start-camera">
+                              <a class="waves-effect red darken-2 btn-floating btn-large modal-trigger" href="#modal-{{i}}">
+                                <i class="material-icons left">thumb_down</i>
+                              </a>
+                              <span class="label-vote">Não conforme</span>
+                            </div>
+
+                            <div class="vote">
+                              <a class="waves-effect blue-grey darken-2 btn-floating btn-large">
+                                <i class="material-icons left">remove_circle</i>
+                              </a>
+                              <span class="label-vote">Não se aplica</span>
+                            </div>
+
+                          <!-- TODO: usar esse mesmo input para mandar a foto via ajax-->
+                            <input placeholder="" name="{{i}}-foto" id="download-photo" type="text" class="validate" onchange="saveData(this)">
+
                           </li>
                         </fieldset>
+
+                    <!-- Modal de cada item-->
+                    <div id="modal-{{i}}" class="modal">
+                    <div class="modal-content">
+                      <div id="webcam-container" class="webcam-container col-12 d-none p-0 m-0">
+                        <h5 class="blue-text text-darken-4 center-align">Tire uma foto para registrar a não conformidade.</h5>
+                        <video id="webcam" autoplay playsinline max-width="640"></video>
+                        <canvas id="canvas" class="d-none"></canvas>
+                        <div id="cameraControls" class="cameraControls center-align">
+          <!--                  <a href="#" id="exit-app" title="Exit App" class="d-none"><i class="material-icons">exit_to_app</i></a>-->
+                            <a href="#" id="take-photo" title="Take Photo" name="photo-{{i}}"><i class="large material-icons">camera_alt</i></a>
+          <!--                  <a href="#" id="download-photos" download="selfie.png" target="_blank" title="Save Photo" class="d-none"><i class="material-icons">file_download</i></a>-->
+          <!--                  <a href="#" id="resume-camera"  title="Resume Camera" class="d-none"><i class="material-icons">camera_front</i></a>-->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
 
                     {% endfor %}
                   </ul>
@@ -131,21 +170,7 @@
                 </div>
             {% endfor %}
 
-          <div id="modal1" class="modal">
-            <div class="modal-content">
-              <div id="webcam-container" class="webcam-container col-12 d-none p-0 m-0">
-                <h5 class="blue-text text-darken-4 center-align">Tire uma foto para registrar a não conformidade.</h5>
-                <video id="webcam" autoplay playsinline max-width="640"></video>
-                <canvas id="canvas" class="d-none"></canvas>
-                <div id="cameraControls" class="cameraControls center-align">
-  <!--                  <a href="#" id="exit-app" title="Exit App" class="d-none"><i class="material-icons">exit_to_app</i></a>-->
-                    <a href="#" id="take-photo" title="Take Photo"><i class="large material-icons">camera_alt</i></a>
-  <!--                  <a href="#" id="download-photos" download="selfie.png" target="_blank" title="Save Photo" class="d-none"><i class="material-icons">file_download</i></a>-->
-  <!--                  <a href="#" id="resume-camera"  title="Resume Camera" class="d-none"><i class="material-icons">camera_front</i></a>-->
-                </div>
-              </div>
-            </div>
-          </div>
+
 
         </div>
 
@@ -266,11 +291,35 @@
                     'Tente novamente ou entre em contando com “engenharia@jeitto.com.br“'
                 );
             }
-
-
           });
+        }
 
+        function saveImage(fieldName, img) {
+          let csrftoken = getCookie('csrftoken');
+          let url = "{% url 'save_data' %}";
+          let field = fieldName;
+          let value = img;
 
+          data = {
+                "csrfmiddlewaretoken": csrftoken,
+                "field": field,
+                "value": value
+            }
+
+          $.ajax({
+            type: 'POST',
+            url: url,
+            data: data,
+            success: function (data) {
+                $.alert('Solicitação realizada com sucesso!');
+            },
+            error: function (data) {
+                $.alert(
+                    'Solicitação não realizada. ' +
+                    'Tente novamente ou entre em contando com “engenharia@jeitto.com.br“'
+                );
+            }
+          });
 
 
         }
@@ -311,6 +360,8 @@
         });
 
         $("#take-photo").click(function () {
+            fieldName = this.name
+
             //beforeTakePhoto();
             let picture = webcam.snap();
             // enviar base64 em um input hidden
@@ -318,6 +369,7 @@
 
             //document.querySelector('#download-photo').href = picture;
             document.querySelector('#download-photo').value = picture;
+            saveImage(fieldName, 'picture');
             afterTakePhoto();
         });
 
