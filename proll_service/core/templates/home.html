@@ -120,21 +120,21 @@
                             <h5>{{ i }}:</h5>
 
                             <div class="vote">
-                                <a class="waves-effect wave darken-2 btn-floating btn-large">
+                                <a class="waves-effect wave darken-2 btn-floating btn-large" data-category="{{local_itens}}" data-item="{{i}}" data-value="conforme" onclick="saveVote(this)">
                                   <i class="material-icons">thumb_up</i>
                                 </a>
                               <span class="label-vote">Conforme</span>
                             </div>
 
                             <div class="vote start-camera">
-                              <a class="waves-effect red darken-2 btn-floating btn-large modal-trigger" href="#modal-{{i}}">
+                              <a class="waves-effect red darken-2 btn-floating btn-large modal-trigger" data-category="{{local_itens}}" data-item="{{i}}" data-value="não conforme" href="#modal-{{i}}" onclick="saveVote(this)">
                                 <i class="material-icons left">thumb_down</i>
                               </a>
                               <span class="label-vote">Não conforme</span>
                             </div>
 
                             <div class="vote">
-                              <a class="waves-effect blue-grey darken-2 btn-floating btn-large">
+                              <a class="waves-effect blue-grey darken-2 btn-floating btn-large" data-category="{{local_itens}}" data-item="{{i}}" data-value="não se aplica" onclick="saveVote(this)">
                                 <i class="material-icons left">remove_circle</i>
                               </a>
                               <span class="label-vote">Não se aplica</span>
@@ -260,13 +260,6 @@
         function saveData(el) {
         // Pegar o identificador (usuario, avaliação, etc) tabela avaliação
 
-        // Avaliacao.avaliador_id
-        //
-        //
-        // Avaliacao.estabelecimento
-        // Avaliacao.quarto
-        // Avaliacao.avaliador
-
           let csrftoken = getCookie('csrftoken');
           let url = "{% url 'save_data' %}";
           let field = el.name;
@@ -276,7 +269,7 @@
                 "csrfmiddlewaretoken": csrftoken,
                 "field": field,
                 "value": value
-            }
+          }
 
           $.ajax({
             type: 'POST',
@@ -296,7 +289,7 @@
 
         function saveImage(fieldName, img) {
           let csrftoken = getCookie('csrftoken');
-          let url = "{% url 'save_data' %}";
+          let url = "{% url 'save_data' %}"; // save_image
           let field = fieldName;
           let value = img;
 
@@ -321,6 +314,36 @@
             }
           });
 
+        }
+
+        function saveVote(el) {
+          let csrftoken = getCookie('csrftoken');
+          let url = "{% url 'save_data' %}"; // save_vote
+          let category = el.dataset.category;
+          let item = el.dataset.item;
+          let value = el.dataset.value;
+
+          data = {
+                "csrfmiddlewaretoken": csrftoken,
+                "category": category,
+                "item": item,
+                "value": value
+            }
+
+          $.ajax({
+            type: 'POST',
+            url: url,
+            data: data,
+            success: function (data) {
+                $.alert('Solicitação realizada com sucesso!');
+            },
+            error: function (data) {
+                $.alert(
+                    'Solicitação não realizada. ' +
+                    'Tente novamente ou entre em contando com “engenharia@jeitto.com.br“'
+                );
+            }
+          });
 
         }
 

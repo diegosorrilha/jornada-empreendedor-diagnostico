@@ -82,12 +82,47 @@ def get_items():
 
 
 def save_data(request):
+    # User.evaluated_items
+
+    # Assessment.id
+    # Assessment.created_at
+    # Assessment.evaluator # User.id
+    # Assessment.establishment_id # Establishment.id
+    # Assessment.room
+    # Assessment.evaluated_items
+
+    # Establishment.id
+    # Establishment.name
+
+    # Avaliacao.id
+    # Avaliacao.datetime
+    # Avaliacao.avaliador_id # user logado
+    # Avaliacao.establishment_id #
+    # Avaliacao.room
+    # Avaliacao.items
+
+    evaluated_items = {
+        'Teto': 'conforme',
+        'Luminária': 'não se aplica',
+        'Luz': 'não conforme',
+        'photo_Luz': 'base64'
+    }
+
+    for k, v in evaluated_items.items():
+        if not k.startswith('photo'):
+            print(f'{k}: {v}')
+
+
+    # Avaliacao.avaliador
+    # Avaliacao.avaliador
+    # Avaliacao.avaliador
+
+
     print('================')
 
     print(f'vai salvar data {request.POST}')
 
     print('================')
-
 
     return JsonResponse({'message': "Updated with SUCCESS"}, status=200)
 
