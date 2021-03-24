@@ -75,7 +75,7 @@
           <div class="input-field col s6">
             <!-- <input placeholder="Data da avaliação" id="date" type="text" class="validate"> -->
             <i class="blue-text text-darken-4 material-icons prefix">date_range</i>
-            <input id="date" name="date" type="text" class="datepicker">
+            <input id="date" name="date" type="text" class="datepicker" onchange="saveData(this)">
             <label for="date">Data da avaliação</label>
             <span class="helper-text" data-error="wrong" data-success="right">Campo obrigatório</span>
           </div>
@@ -90,7 +90,7 @@
         <div class="row">
           <div class="input-field col s6">
             <i class="blue-text text-darken-4 material-icons prefix">domain</i>
-            <select>
+            <select onchange="saveData(this)">
               <option value="" disabled selected>Escolha o estabelecimento</option>
               {% for establishment in establishments %}
                 <option value="{{ establishment }}_id">{{ establishment }}</option>
@@ -102,7 +102,7 @@
 
           <div class="input-field col s6">
             <i class="blue-text text-darken-4 material-icons prefix">room</i>
-            <input id="quarto" name="quarto"  type="text" class="validate">
+            <input id="quarto" name="quarto"  type="text" class="validate" onchange="saveData(this)">
             <label for="quarto">Quarto</label>
             <span class="helper-text" data-error="wrong" data-success="right">Campo obrigatório</span>
           </div>

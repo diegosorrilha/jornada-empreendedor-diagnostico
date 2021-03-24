@@ -82,9 +82,16 @@ def get_items():
 
 
 def save_data(request):
+    print('================')
+
     print(f'vai salvar data {request.POST}')
 
+    print('================')
+
+
     return JsonResponse({'message': "Updated with SUCCESS"}, status=200)
+
+
 
 
 def home(request):
