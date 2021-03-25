@@ -3,17 +3,12 @@ import logging
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 
-from django.urls import reverse
-
-# from .forms import DiagnosticoForm1
+from proll_service.core.models import Establishment, Assessment
 
 logger = logging.getLogger(__name__)
 
 def get_establishments():
-    establishments = [
-        'Hospital Santa Luzia',
-        'Hospital Madre Tereza'
-    ]
+    establishments = Establishment.objects.all()
 
     return establishments
 
@@ -94,12 +89,6 @@ def save_data(request):
     # Establishment.id
     # Establishment.name
 
-    # Avaliacao.id
-    # Avaliacao.datetime
-    # Avaliacao.avaliador_id # user logado
-    # Avaliacao.establishment_id #
-    # Avaliacao.room
-    # Avaliacao.items
 
     evaluated_items = {
         'Teto': 'conforme',
@@ -111,12 +100,6 @@ def save_data(request):
     for k, v in evaluated_items.items():
         if not k.startswith('photo'):
             print(f'{k}: {v}')
-
-
-    # Avaliacao.avaliador
-    # Avaliacao.avaliador
-    # Avaliacao.avaliador
-
 
     print('================')
 
@@ -130,7 +113,12 @@ def save_data(request):
 def home(request):
     logger.info('iniciando')
     print('iniciando')
+
+
     template_name = 'home.html'
+
+    assessment = Assessment.objects.last()
+
     establishments = get_establishments()
     items = get_items()
 
@@ -143,4 +131,8 @@ def home(request):
     # form = DiagnosticoForm1()
     # return render(request, template_name, {'form': form})
 
-    return render(request, template_name, {'items': items, 'establishments': establishments})
+    return render(request, template_name, {
+        'assessment': assessment,
+        'items': items,
+        'establishments': establishments
+    })

@@ -75,9 +75,9 @@
           <div class="input-field col s6">
             <!-- <input placeholder="Data da avaliação" id="date" type="text" class="validate"> -->
             <i class="blue-text text-darken-4 material-icons prefix">date_range</i>
-            <input id="date" name="date" type="text" class="datepicker" onchange="saveData(this)">
-            <label for="date">Data da avaliação</label>
-            <span class="helper-text" data-error="wrong" data-success="right">Campo obrigatório</span>
+<!--            <input id="date" name="date" type="text" class="datepicker" onchange="saveData(this)">-->
+            <input disabled name="date" id="icon_prefix_date" type="text" class="validate">
+            <label for="icon_prefix_date">{{assessment.created_date}}</label>
           </div>
 
         <div class="input-field col s6">
@@ -90,10 +90,10 @@
         <div class="row">
           <div class="input-field col s6">
             <i class="blue-text text-darken-4 material-icons prefix">domain</i>
-            <select onchange="saveData(this)">
+            <select onchange="saveData(this)" name="establishment_id">
               <option value="" disabled selected>Escolha o estabelecimento</option>
               {% for establishment in establishments %}
-                <option value="{{ establishment }}_id">{{ establishment }}</option>
+                <option value="{{ establishment.id }}" name="establishment_id">{{ establishment.name }}</option>
               {% endfor %}
             </select>
             <label>Estabelecimento</label>
@@ -102,7 +102,7 @@
 
           <div class="input-field col s6">
             <i class="blue-text text-darken-4 material-icons prefix">room</i>
-            <input id="quarto" name="quarto"  type="text" class="validate" onchange="saveData(this)">
+            <input id="quarto" name="room"  type="text" class="validate" onchange="saveData(this)">
             <label for="quarto">Quarto</label>
             <span class="helper-text" data-error="wrong" data-success="right">Campo obrigatório</span>
           </div>
